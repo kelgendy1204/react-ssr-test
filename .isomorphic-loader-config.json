@@ -1,0 +1,12 @@
+{
+  "valid": true,
+  "version": "2.0.2",
+  "timestamp": 1531051636034,
+  "context": "",
+  "output": {
+    "path": "build",
+    "filename": "server.js",
+    "publicPath": ""
+  },
+  "assetsFile": "build/isomorphic-assets.json"
+}
