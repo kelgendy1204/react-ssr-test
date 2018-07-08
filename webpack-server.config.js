@@ -1,4 +1,5 @@
 const path = require('path');
+var IsomorphicLoaderPlugin = require("isomorphic-loader/lib/webpack-plugin");
 
 module.exports = {
     entry: './server.js',
@@ -6,6 +7,7 @@ module.exports = {
     mode: 'development',
     output: {
         filename: 'server.js',
+        publicPath: '/',
         path: path.resolve(__dirname, 'build'),
         libraryTarget: 'commonjs2'
     },
@@ -20,12 +22,15 @@ module.exports = {
             },
             {
                 test: /\.(png|svg|jpg|gif)$/,
-                use: ['file-loader']
+                use: ['file-loader', 'isomorphic-loader']
             },
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader']
             }
         ]
-    }
+    },
+    plugins: [
+        new IsomorphicLoaderPlugin()
+    ]
 };

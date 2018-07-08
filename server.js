@@ -10,20 +10,18 @@ var app = express();
 app.use(express.static(path.resolve(__dirname, './build')));
 
 app.get('/app', function (req, res) {
-    fs.readFile(path.resolve(__dirname, 'build', 'index.html'), 'utf8', function (err, data) {
-        const html = ReactDOMServer.renderToString(<App />);
+    fs.readFile(path.resolve(__dirname, 'build', 'index.html'), 'utf8', function (err, fileData) {
         if (err) throw err;
 
-        // axios.get('https://jsonplaceholder.typicode.com/photos/5')
-        //     .then(() => {
-                
-        //     });
-
-        // Inserts the rendered React HTML into our main div
-        const document = data.replace('<!-- App -->', html);
-
-        // Sends the response back to the client
-        res.send(document);
+        axios.get('https://jsonplaceholder.typicode.com/photos/5')
+            .then(({ data }) => {
+                const html = ReactDOMServer.renderToString(<App photo={data} />);
+                const document = fileData.replace('<!-- App -->', html);
+                res.send(document);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     });
 });
 
