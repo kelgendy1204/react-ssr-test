@@ -2,32 +2,24 @@ import React from 'react';
 import chrome from '../images/chrome.svg';
 import android from '../images/android.svg';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import './style.css';
 
-export default class App extends React.Component {
-    state = {
-        photo: null
-    }
-
-    constructor(props) {
-        super(props);
-        if(props.photo) {
-            this.state = { photo: props.photo };
-        } else {
-            if(window.__photo__) {
-                this.state = { photo: window.__photo__ };
-                delete window.__photo__;
-            } else {
-                axios.get('https://jsonplaceholder.typicode.com/photos/5')
-                    .then(({data}) => {
-                        this.setState({ photo: data });
-                    });
-            }
+class App extends React.Component {
+    componentDidMount() {
+        if(!this.props.photo) {
+            axios.get('https://jsonplaceholder.typicode.com/photos/5')
+            .then(({ data }) => {
+                this.props.dispatch({
+                    type: 'CHANGE_PHOTO',
+                    payload: data
+                })
+            });
         }
     }
 
     render() {
-        const { photo } = this.state;
+        const { photo } = this.props;
         return (
             <div>
                 Static photos
@@ -42,3 +34,10 @@ export default class App extends React.Component {
         );
     }
 }
+
+App = connect((state) => {
+    const { photo } = state;
+    return { photo };
+})(App);
+
+export default App;

@@ -4,6 +4,7 @@
     "main": "index.js",
     "license": "MIT",
     "scripts": {
+        "clientonly": "webpack --config webpack-client.config.js && static ./build -p 3000",
         "client": "webpack --config webpack-client.config.js",
         "server": "webpack --config webpack-server.config.js",
         "nodeserver": "nodemon ./bootstrap.js",
@@ -15,6 +16,9 @@
         "node-static": "^0.7.10",
         "react": "^16.4.1",
         "react-dom": "^16.4.1",
+        "react-redux": "^5.0.7",
+        "redux": "^4.0.0",
+        "serialize-javascript": "^1.5.0",
         "webpack": "^4.15.1",
         "webpack-cli": "^3.0.8"
     },
