@@ -15,8 +15,10 @@ app.get('/app', function (req, res) {
 
         axios.get('https://jsonplaceholder.typicode.com/photos/5')
             .then(({ data }) => {
-                const html = ReactDOMServer.renderToString(<App photo={data} />);
-                const document = fileData.replace('<!-- App -->', html);
+                let appHTML = ReactDOMServer.renderToString(<App photo={data} />);
+                let globalData = `<script>window.__photo__ = ${JSON.stringify(data)};</script>`;
+                let document = fileData.replace('<!-- App -->', appHTML);
+                document = document.replace('<!-- scripts -->', globalData);
                 res.send(document);
             })
             .catch(function (error) {

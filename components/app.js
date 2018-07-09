@@ -9,14 +9,20 @@ export default class App extends React.Component {
         photo: null
     }
 
-    componentDidMount() {
-        if(!this.props.photo) {
-            axios.get('https://jsonplaceholder.typicode.com/photos/5')
-                .then(({data}) => {
-                    this.setState({ photo: data });
-                });
+    constructor(props) {
+        super(props);
+        if(props.photo) {
+            this.state = { photo: props.photo };
         } else {
-            this.setState({ photo: this.props.photo });
+            if(window.__photo__) {
+                this.state = { photo: window.__photo__ };
+                delete window.__photo__;
+            } else {
+                axios.get('https://jsonplaceholder.typicode.com/photos/5')
+                    .then(({data}) => {
+                        this.setState({ photo: data });
+                    });
+            }
         }
     }
 

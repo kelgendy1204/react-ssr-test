@@ -4,8 +4,10 @@
     "main": "index.js",
     "license": "MIT",
     "scripts": {
-        "client": "webpack --config webpack-client.config.js && static ./build/main.html -p 3300",
-        "server": "webpack --config webpack-client.config.js && webpack --config webpack-server.config.js && nodemon ./bootstrap.js"
+        "client": "webpack --config webpack-client.config.js",
+        "server": "webpack --config webpack-server.config.js",
+        "nodeserver": "nodemon ./bootstrap.js",
+        "start": "yarn client && yarn server && yarn nodeserver"
     },
     "dependencies": {
         "axios": "^0.18.0",
