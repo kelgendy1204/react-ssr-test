@@ -1,25 +1,14 @@
 import React from 'react';
+import { Route, Switch, Link } from 'react-router-dom';
 import chrome from '../images/chrome.svg';
 import android from '../images/android.svg';
-import axios from 'axios';
-import { connect } from 'react-redux';
 import './style.css';
+import Photo from './photo';
+import Home from './home';
+import Post from './post';
 
 class App extends React.Component {
-    componentDidMount() {
-        if(!this.props.photo) {
-            axios.get('https://jsonplaceholder.typicode.com/photos/5')
-            .then(({ data }) => {
-                this.props.dispatch({
-                    type: 'CHANGE_PHOTO',
-                    payload: data
-                })
-            });
-        }
-    }
-
     render() {
-        const { photo } = this.props;
         return (
             <div>
                 Static photos
@@ -29,15 +18,30 @@ class App extends React.Component {
                 <br /> <br /> <br />
                 Online Photo
                 <br /> <br /> <br />
-                {photo && <img src={photo.url} />}
+                <div>
+                    <ul>
+                        <li>
+                            <Link to="/">Home</Link>
+                        </li>
+                        <li>
+                            <Link to="/photo">Photo</Link>
+                        </li>
+                        <li>
+                            <Link to="/post">Post</Link>
+                        </li>
+                    </ul>
+
+                    <hr />
+
+                    <Switch>
+                        <Route exact path="/" component={Home} />
+                        <Route path="/photo" component={Photo} />
+                        <Route path="/post" component={Post} />
+                    </Switch>
+                </div>
             </div>
         );
     }
 }
-
-App = connect((state) => {
-    const { photo } = state;
-    return { photo };
-})(App);
 
 export default App;

@@ -1,9 +1,16 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: './client.js',
     mode: 'development',
+    devServer: {
+        contentBase: path.join(__dirname, 'build'),
+        port: 9000,
+        historyApiFallback: true
+    },
+    devtool: 'inline-source-map',
     output: {
         filename: 'main.js',
         publicPath: '/',
@@ -32,6 +39,11 @@ module.exports = {
         new HtmlWebpackPlugin({
             fileName: './build/index.html',
             template: './index.html',
+        }),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'clientonly': JSON.stringify('clientonly')
+            }
         })
     ]
 };
