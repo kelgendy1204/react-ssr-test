@@ -7,7 +7,7 @@
         "clientonly": "webpack-dev-server --config webpack-client.config.js",
         "client": "webpack --config webpack-client.config.js",
         "server": "webpack --config webpack-server.config.js",
-        "nodeserver": "nodemon ./bootstrap.js",
+        "nodeserver": "node ./bootstrap.js",
         "start": "yarn client && yarn server && yarn nodeserver"
     },
     "dependencies": {

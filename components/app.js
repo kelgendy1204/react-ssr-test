@@ -11,12 +11,12 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                Static photos
+                <h2>Static photos</h2>
                 <br /> <br /> <br />
                 <img src={chrome} onClick={() => alert('chrome')} />
                 <img src={android} onClick={() => alert('android')} />
                 <br /> <br /> <br />
-                Online Photo
+                <h2>Tabs</h2>
                 <br /> <br /> <br />
                 <div>
                     <ul>

@@ -37,8 +37,8 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            fileName: './build/index.html',
-            template: './index.html',
+            filename: 'web.html',
+            template: 'web.html',
         }),
         new webpack.DefinePlugin({
             'process.env': {
